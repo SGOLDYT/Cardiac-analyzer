@@ -2,6 +2,7 @@
 env/
 venv/
 *.venv
+*.env
 
 # Bases de datos
 *.sqlite3
