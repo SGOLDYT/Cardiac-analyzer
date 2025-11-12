@@ -1,0 +1,6 @@
+.nav-item.active .nav-link {
+    color: #244385 !important; 
+    border-bottom: 3px solid #51378a; 
+    font-family: 'Roboto', sans-serif;
+    font-weight: 20000;
+}

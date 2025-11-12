@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import django_plotly_dash
+import dash_bootstrap_components
 
 load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,16 +43,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Analyzer.apps.AnalyzerConfig',
+    'django_plotly_dash',
+    'dash_bootstrap_components',
 ]
+
+# settings.py
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    #'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django_plotly_dash.middleware.ExternalRedirectionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'cardiac_analyzer.urls'
@@ -117,13 +124,27 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
+
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',  
+    BASE_DIR / 'static', 
 ]
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder', 
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PLOTLY_DASH = {
+    "serve_locally": False, 
+    "view_name": "django_plotly_dash:app-view",
+}
+DATA_UPLOAD_MAX_MEMORY_SIZE = 200 * 1024 * 1024
